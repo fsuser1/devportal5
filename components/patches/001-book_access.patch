@@ -1,0 +1,12 @@
+--- book_access.module
++++ fix.book_access.module
+@@ -656,7 +656,8 @@
+    *   'grant_update', 'grant_delete', 'grant_admin_access', 'grant_add_child',
+    *   'grant_edit_outline', and @code $rid @endcode is the role ID.
+    */
+-  public static function setRoleGrants($bid, array $rids, array $grants) {
++  public static function setRoleGrants($bid, array $rids, $grants = array()) {
++  	if(empty($grants)) $grants = array();
+     db_delete('book_access_role')
+       ->condition('nid', $bid)
+       ->execute();

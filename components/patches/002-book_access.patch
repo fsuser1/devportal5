@@ -1,0 +1,16 @@
+--- book_access.module
++++ fix.book_access.module
+@@ -1088,6 +1088,13 @@ function book_access_node_access_records($node) {
+ 
+   if (!empty($node->book['bid'])) {
+     $grants = BookAccess::getGrantRecords($node->book['bid']);
++
++    if (is_array($grants) && !$node->status) {
++      // unpublished node, grant_view should be off for all types (author,role,user)
++      foreach ($grants as &$grant) {
++        $grant['grant_view'] = 0;
++      }
++    }
+   }
+ 
+   return $grants;

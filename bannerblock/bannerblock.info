@@ -1,0 +1,11 @@
+name = Banner Block
+description = A Welcome banner block
+core = 7.x
+package = Forum Systems API Management
+files[] = bannerblock.module
+files[] = "plugins/bean/bannerblock.banner_block.inc"
+
+dependencies[] = bean
+dependencies[] = image
+
+version = VERSION

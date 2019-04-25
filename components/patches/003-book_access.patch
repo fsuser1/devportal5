@@ -1,0 +1,33 @@
+--- book_access.module
++++ fix.book_access.module
+@@ -850,7 +850,8 @@ function book_access_node_insert( $node) {
+     BookAccess::setAuthorGrants(
+       $node->book['bid'],
+       $node->uid,
+-      drupal_map_assoc( variable_get( "book_access_default_author_access")));
++      drupal_map_assoc($node->uid == 0 ? BookAccess::defaultGrants() : variable_get("book_access_default_author_access"))
++    );
+ 
+     $roles = user_roles();
+     $rids = array_keys( $roles);
+@@ -882,7 +883,8 @@ function book_access_node_update( $node) {
+       BookAccess::setAuthorGrants(
+         $node->book['bid'],
+         $node->uid,
+-        drupal_map_assoc( variable_get( "book_access_default_author_access")));
++        drupal_map_assoc($node->uid == 0 ? BookAccess::defaultGrants() : variable_get("book_access_default_author_access"))
++      );
+     }
+ 
+     $roles = user_roles();
+--- book_access_ui.admin.inc
++++ fix.book_access_ui.admin.inc
+@@ -496,7 +496,7 @@ function theme_book_access_ui_grants_form($variables) {
+   $form = $variables['form'];
+   $rows = array();
+ 
+-  if ($form['#author']) {
++  if (isset($form['#author'])) {
+     $rows[] = array(
+       drupal_render($form['author']['name']),
+       drupal_render($form['author']['grant_admin_access']),

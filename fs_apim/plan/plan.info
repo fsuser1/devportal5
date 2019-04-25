@@ -1,0 +1,10 @@
+name = Forum Systems API Management Plan
+description = Forum Systems API Management Plan Node Content Type
+package = Forum Systems API Management
+core = 7.x
+dependencies[] = field
+dependencies[] = node
+dependencies[] = fs_apim
+dependencies[] = ctools
+
+version = VERSION

@@ -1,0 +1,30 @@
+--- book.import.inc
++++ fix.book.import.inc
+@@ -182,7 +182,7 @@
+     $body = isset($body_content[$filename]) ? $body_content[$filename] : NULL;
+     $id = isset($book_ids['pages'][$filename]) ? $book_ids['pages'][$filename] : NULL;
+     $pageid = fs_profile_create_page($title, $body, $bid, $id);
+-    $book_ids['pages'][$filename] = $pageid;
++    $book_ids['pages'][$filename] = $pageid;  apim_path_save($pageid, $filename);
+   }
+   variable_set('fs_apim_book_ids', $book_ids);
+ 
+@@ -680,4 +680,17 @@
+       node_save($node);
+     }
+   }
++}
++
++/**
++ * @param $source_nid
++ * @param $filename
++ */
++function apim_path_save(&$source_nid, $filename) {
++  $path = array(
++    'source' => 'node/' . $source_nid,
++    'alias' => $filename,
++    'language' => 'en',
++  );
++  path_save($path);
+ }
+\ No newline at end of file

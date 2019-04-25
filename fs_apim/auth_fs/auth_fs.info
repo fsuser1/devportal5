@@ -1,0 +1,7 @@
+name = Forum Systems API Management Authentication
+description = A module to allow user authentication against Forum Systems API Management.
+package = Forum Systems API Management
+core = 7.x
+dependencies[] = fs_apim
+
+version = VERSION

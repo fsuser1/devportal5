@@ -1,0 +1,11 @@
+name = Forum Systems API Management Application
+description = Forum Systems API Management Application Node Content Type
+package = Forum Systems API Management
+core = 7.x
+dependencies[] = field
+dependencies[] = node
+dependencies[] = fs_apim
+
+scripts[] = js/Application.js
+
+version = VERSION

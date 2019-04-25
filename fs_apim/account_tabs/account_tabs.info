@@ -1,0 +1,8 @@
+name = Forum Systems API Management Account Tabs
+description = A module to make the user profile pages use tabs.
+package = Forum Systems API Management
+core = 7.x
+dependencies[] = fs_apim
+dependencies[] = password_policy_password_tab
+
+version = VERSION

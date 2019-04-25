@@ -1,0 +1,18 @@
+--- security_questions.install
++++ fix.security_questions.install
+@@ -21,6 +21,7 @@ function security_questions_schema() {
+       'sqid' => array(
+         'description' => 'The security question ID',
+         'type' => 'int',
++        'not null' => TRUE,
+       ),
+       'answer' => array(
+         'description' => 'The answer to the users question',
+@@ -37,6 +38,7 @@ function security_questions_schema() {
+       'sqid' => array(
+         'description' => 'The security question ID',
+         'type' => 'serial',
++        'not null' => TRUE,
+       ),
+       'question' => array(
+         'description' => 'The text of the question',

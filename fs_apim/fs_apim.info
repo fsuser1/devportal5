@@ -1,0 +1,25 @@
+name = Forum Systems API Management
+description = Integrate Forum Systems API Management into Drupal
+core = 7.x
+package = Forum Systems API Management
+configure = admin/config/system/fs_apim
+files[] = fs_apim.module
+files[] = tests/fs_apim.test
+files[] = tests/application.test
+files[] = tests/product.test
+files[] = tests/api.test
+files[] = tests/orgs.test
+files[] = tests/fs_test_helper_functions.php
+
+dependencies[] = entity
+dependencies[] = text
+dependencies[] = image
+dependencies[] = list
+dependencies[] = entityreference
+dependencies[] = field_group
+
+scripts[] = js/dropit.js
+scripts[] = js/hideShowPassword.js
+scripts[] = js/simple_dialog.js
+
+version = VERSION

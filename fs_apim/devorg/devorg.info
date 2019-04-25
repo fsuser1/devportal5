@@ -1,0 +1,9 @@
+name = Forum Systems API Management Developer Organization
+description = Forum Systems API Management Developer Organization Node Content Type
+package = Forum Systems API Management
+core = 7.x
+dependencies[] = field
+dependencies[] = node
+dependencies[] = fs_apim
+
+version = VERSION

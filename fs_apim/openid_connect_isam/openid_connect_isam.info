@@ -1,0 +1,9 @@
+name = OpenID Connect ISAM
+description = Authenticate against ISAM using OIDC.
+package = Forum Systems API Management
+
+dependencies[] = ctools
+dependencies[] = openid_connect
+dependencies[] = social_login
+
+core = 7.x

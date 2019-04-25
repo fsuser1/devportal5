@@ -1,0 +1,13 @@
+name = API Management Taxonomy menu block
+description = Make menu blocks out of your taxonomies
+core = 7.x
+package = Forum Systems API Management
+dependencies[] = taxonomy
+dependencies[] = block
+
+; Information added by Drupal.org packaging script on 2014-10-10
+version = VERSION
+core = "7.x"
+project = "fs_taxonomy_menu_block"
+
+

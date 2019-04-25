@@ -1,0 +1,12 @@
+name = Forum Systems API Management E-mail Subscribers
+description = A module that provides the capability to email Product and Plan subscribers.
+package = Forum Systems API Management
+core = 7.x
+dependencies[] = fs_apim
+dependencies[] = product
+dependencies[] = application
+
+files[] = mail_subscribers.admin.inc
+files[] = mail_subscribers.rules.inc
+
+version = VERSION

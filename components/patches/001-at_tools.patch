@@ -1,0 +1,26 @@
+--- at_tools.module
++++ fix.at_tools.module
+@@ -9,16 +9,19 @@ function at_tools_flush_caches() {
+     // all enabled AT subthemes since we don't know which ones to clear.
+     $themes_array = array('adaptivetheme');
+     $themes = list_themes(TRUE);
++    $array = array('');
+     foreach ($themes as $key => $theme_name) {
+       if ($key == 'adaptivetheme') {
+         foreach ($theme_name->sub_themes as $sub_theme_key => $sub_theme_name) {
+           $array[] = $sub_theme_key;
+         }
+       }
+-      foreach ($array as $name) {
+-        if ($name == $key) {
+-          if ($theme_name->status == 1) {
+-            $themes_array[] = $key;
++      if (!empty($array)) {
++        foreach ($array as $name) {
++          if ($name == $key) {
++            if ($theme_name->status == 1) {
++              $themes_array[] = $key;
++            }
+           }
+         }
+       }

@@ -1,0 +1,50 @@
+--- fs_apim.module
++++ fix.fs_apim.module
+@@ -2370,7 +2370,7 @@
+     // so make sure we surface this in the UI
+     if ($http_status == 0) {
+       if ($notify_drupal) {
+-        throw new Exception(t('Could not communicate with server. Reason: ') . $error);
++        drupal_set_message(t('Could not communicate with server. Reason: ') . serialize($error), 'error');
+       }
+       else {
+         throw new Exception('Could not communicate with server. Reason: ' . $error);
+@@ -5510,6 +5510,10 @@
+         $etagstring .= '-g ' . escapeshellarg($etags['org']) . ' ';
+       }
+     }
++    else { // PATCH
++        $all = escapeshellarg("*");
++        $etagstring = '-a ' . escapeshellarg($url) . ' -b '. $all . ' -c '. $all . ' -d '. $all . ' -e '. $all . ' -f '. $all . ' -g '. $all . ' ';
++    }
+ 
+     $drush = '';
+     $fs_apim_cron_drush = variable_get('fs_apim_cron_drush', NULL);
+@@ -5517,6 +5521,7 @@
+       $drush = ' -x ';
+     }
+ 
++    /* PATCH
+     exec('bash -c "ADMIN_USER=$USER /home/admin/bin/clear_webhooks ' . escapeshellarg($url) . ' > >(ADMIN_USER=$USER ~admin/bin/background_sync_logger >> /var/log/devportal/background_sync.log) 2>&1"', $output, $rc);
+     if (isset($rc) && $rc != 0) {
+       watchdog('fs_apim_cron', 'clear_webhooks %rc. Output: %data', array(
+@@ -5524,10 +5529,18 @@
+         '%data' => var_export($output)
+       ), WATCHDOG_NOTICE);
+     }
++    */
+ 
+     $apim_host = variable_get('fs_apim_host');
++    $apim_host .= "/v1/portal"; // PATCH
++    $bgsync_user = variable_get('fs_apim_bgsync_user');
++    $bgsync_password = variable_get('fs_apim_bgsync_password');
++    $auth = '';
++    if (!empty($bgsync_user) && !empty($bgsync_password)) {
++      $auth = '-u ' . $bgsync_user . ' -v ' . $bgsync_password;
++    }
+     $bgsync_return_code = 0;
+-    $stream = popen('bash -c "/usr/local/bin/node /home/admin/bgsync/background_sync.js -o ' . escapeshellarg($apim_host) . ' -p ' . escapeshellarg($url) . ' ' . $secure . ' ' . $drush . ' ' . $etagstring . ' 2> >(ADMIN_USER=$USER ~admin/bin/background_sync_logger >> /var/log/devportal/background_sync.log)"', 'r');
++    $stream = popen('bash -c "' . PHP_BINDIR . '/php sites/all/libraries/background_sync/backgroundSync_proxy.php -o ' . escapeshellarg($apim_host) . ' -p ' . escapeshellarg($url) . ' ' . $secure . ' ' . $drush . ' ' . $etagstring . ' ' . $auth . ' 2>> /var/log/devportal/background_sync.log"', 'r'); // PATCH
+     $listener = new \Drupal\fs_apim\CollectionListener('processItem', TRUE);
+     try {
+       if ($fs_apim_cron_drush == FALSE) {
